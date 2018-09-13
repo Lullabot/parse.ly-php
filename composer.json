@@ -1,0 +1,13 @@
+{
+    "name": "lullabot/parse.ly-php",
+    "description": "Parse.ly API client",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Berry",
+            "email": "andrew.berry@lullabot.com"
+        }
+    ],
+    "require": {}
+}
