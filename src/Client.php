@@ -8,6 +8,14 @@ use Psr\Http\Message\RequestInterface;
 
 class Client implements ClientInterface
 {
+
+    /**
+     * The root URL for all API requests.
+     *
+     * @see https://www.parse.ly/help/api/endpoint/
+     */
+    const ROOT_URL = 'https://api.parsely.com/v2';
+
     /**
      * The underlying HTTP client.
      *
@@ -17,10 +25,6 @@ class Client implements ClientInterface
 
     /**
      * Client constructor.
-     *
-     * Custom client implementations should include the Middleware
-     * handler, otherwise MPX errors may not be exposed correctly.
-     *
      *
      * @param \GuzzleHttp\ClientInterface $client The underlying HTTP client to use for requests.
      */
@@ -32,9 +36,7 @@ class Client implements ClientInterface
     /**
      * Get the default Guzzle client configuration array.
      *
-     * @param mixed $handler (optional) A Guzzle handler to use for
-     *                       requests. If a custom handler is specified, it must
-     *                       include Middleware::mpxErrors or a replacement.
+     * @param mixed $handler (optional) A Guzzle handler to use for requests.
      *
      * @return array An array of configuration options suitable for use with Guzzle.
      */
