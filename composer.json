@@ -11,7 +11,10 @@
     ],
     "require": {
         "php": "^7.1",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/serializer": "^3.4",
+        "symfony/property-access": "^3.4",
+        "symfony/property-info": "^3.4"
     },
     "autoload": {
         "psr-4": {
@@ -24,6 +27,10 @@
         }
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "2.13.0"
+        "friendsofphp/php-cs-fixer": "2.13.0",
+        "phpunit/phpunit": "^7.3",
+        "symfony/console": "^4.1",
+        "namshi/cuzzle": "^2.0",
+        "rtheunissen/guzzle-log-middleware": "^0.4.1"
     }
 }

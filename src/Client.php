@@ -8,13 +8,12 @@ use Psr\Http\Message\RequestInterface;
 
 class Client implements ClientInterface
 {
-
     /**
      * The root URL for all API requests.
      *
      * @see https://www.parse.ly/help/api/endpoint/
      */
-    const ROOT_URL = 'https://api.parsely.com/v2';
+    const ROOT_URL = 'https://api.parsely.com/v2/';
 
     /**
      * The underlying HTTP client.
@@ -38,13 +37,14 @@ class Client implements ClientInterface
      *
      * @param string $key
      * @param string $secret
-     * @param mixed $handler (optional) A Guzzle handler to use for requests.
+     * @param mixed  $handler (optional) A Guzzle handler to use for requests.
      *
      * @return array An array of configuration options suitable for use with Guzzle.
      */
     public static function getDefaultConfiguration(string $key, string $secret, $handler = null)
     {
         $config = [
+            'base_uri' => self::ROOT_URL,
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
@@ -52,7 +52,7 @@ class Client implements ClientInterface
             'query' => [
                 'apikey' => $key,
                 'secret' => $secret,
-            ]
+            ],
         ];
 
         if (!$handler) {
