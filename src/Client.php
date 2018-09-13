@@ -36,17 +36,23 @@ class Client implements ClientInterface
     /**
      * Get the default Guzzle client configuration array.
      *
+     * @param string $key
+     * @param string $secret
      * @param mixed $handler (optional) A Guzzle handler to use for requests.
      *
      * @return array An array of configuration options suitable for use with Guzzle.
      */
-    public static function getDefaultConfiguration($handler = null)
+    public static function getDefaultConfiguration(string $key, string $secret, $handler = null)
     {
         $config = [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
+            'query' => [
+                'apikey' => $key,
+                'secret' => $secret,
+            ]
         ];
 
         if (!$handler) {
