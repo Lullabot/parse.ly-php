@@ -36,8 +36,8 @@ class Client implements ClientInterface
      * Client constructor.
      *
      * @param \GuzzleHttp\ClientInterface $client The underlying HTTP client to use for requests.
-     * @param string $apikey
-     * @param string $secret
+     * @param string                      $apikey
+     * @param string                      $secret
      */
     public function __construct(ClientInterface $client, string $apikey, string $secret)
     {
@@ -49,7 +49,7 @@ class Client implements ClientInterface
     /**
      * Get the default Guzzle client configuration array.
      *
-     * @param mixed  $handler (optional) A Guzzle handler to use for requests.
+     * @param mixed $handler (optional) A Guzzle handler to use for requests.
      *
      * @return array An array of configuration options suitable for use with Guzzle.
      */

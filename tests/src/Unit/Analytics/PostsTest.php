@@ -10,14 +10,16 @@ use Lullabot\Parsely\Client;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
-class PostsTest extends TestCase {
-
-    public function testExecute() {
+class PostsTest extends TestCase
+{
+    public function testExecute()
+    {
         $guzzle = new GuzzleClient(Client::getDefaultConfiguration(new MockHandler([
             function (RequestInterface $request) {
                 $this->assertEquals('https://api.parsely.com/v2/analytics/posts?limit=1&apikey=key&secret=secret', (string) $request->getUri());
-                return parse_response(file_get_contents(__DIR__ . '/../../../fixtures/analytics/posts'));
-            }
+
+                return parse_response(file_get_contents(__DIR__.'/../../../fixtures/analytics/posts'));
+            },
         ])));
         $client = new Client($guzzle, 'key', 'secret');
         $posts = new Posts($client);

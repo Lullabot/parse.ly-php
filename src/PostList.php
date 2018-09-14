@@ -43,7 +43,8 @@ class PostList implements \ArrayAccess, \Countable
         unset($this->data[$offset]);
     }
 
-    public function count() {
-        return count($this->data);
+    public function count()
+    {
+        return \count($this->data);
     }
 }
