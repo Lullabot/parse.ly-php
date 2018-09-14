@@ -8,7 +8,7 @@ namespace Lullabot\Parsely;
  * @todo Do all lists of any object have the same format? If so, this could
  *   become just 'List'.
  */
-class PostList implements \ArrayAccess
+class PostList implements \ArrayAccess, \Countable
 {
     /**
      * @var \Lullabot\Parsely\Post[]
@@ -41,5 +41,9 @@ class PostList implements \ArrayAccess
     public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
+    }
+
+    public function count() {
+        return count($this->data);
     }
 }

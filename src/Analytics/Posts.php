@@ -2,8 +2,8 @@
 
 namespace Lullabot\Parsely\Analytics;
 
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Promise\PromiseInterface;
-use Lullabot\Parsely\Client;
 use Lullabot\Parsely\PostList;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
@@ -41,9 +41,9 @@ class Posts
     /**
      * Posts constructor.
      *
-     * @param \Lullabot\Parsely\Client $client
+     * @param \GuzzleHttp\ClientInterface $client
      */
-    public function __construct(Client $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
