@@ -2,6 +2,14 @@
 
 namespace Lullabot\Parsely;
 
+/**
+ * Represents a Post.
+ *
+ * @todo Is this data model shared for all posts? The API is not REST so it's
+ * hard to tell until we need to load posts from another resource.
+ *
+ * @see https://www.parse.ly/help/api/analytics/
+ */
 class Post
 {
     /**
@@ -45,7 +53,7 @@ class Post
     protected $metrics;
 
     /**
-     * @var string
+     * @var \DateTime
      */
     protected $pubDate;
 
@@ -235,19 +243,19 @@ class Post
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getPubDate(): string
+    public function getPubDate(): \DateTime
     {
         return $this->pubDate;
     }
 
     /**
-     * @param string $pubDate
+     * @param \DateTime $pubDate
      *
      * @return Post
      */
-    public function setPubDate(string $pubDate): self
+    public function setPubDate(\DateTime $pubDate): self
     {
         $this->pubDate = $pubDate;
 

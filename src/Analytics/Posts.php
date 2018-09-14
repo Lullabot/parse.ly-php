@@ -8,7 +8,9 @@ use Lullabot\Parsely\PostList;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -112,7 +114,11 @@ class Posts
 
         return $this->client->requestAsync('GET', self::PATH, $options)
             ->then(function (ResponseInterface $response) {
-                $serializer = new Serializer([new ArrayDenormalizer(), new ObjectNormalizer(null, null, null, new PhpDocExtractor())], [new JsonEncoder()]);
+                $serializer = new Serializer([
+                    new DateTimeNormalizer(),
+                    new ArrayDenormalizer(),
+                    new ObjectNormalizer(NULL, new CamelCaseToSnakeCaseNameConverter(), NULL, new PhpDocExtractor()),
+                ], [new JsonEncoder()]);
 
                 return $serializer->deserialize($response->getBody(), PostList::class, 'json');
             });
