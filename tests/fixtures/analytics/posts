@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Age: 0
+Cache-Control: max-age=600
+Content-Type: application/json
+Date: Fri, 14 Sep 2018 18:17:07 GMT
+Expires: Fri, 14 Sep 2018 18:27:07 GMT
+Server: TornadoServer/4.4.2
+Via: 1.1 varnish
+X-Cache: MISS
+X-Varnish: 1549766554
+Content-Length: 1348
+Connection: keep-alive
+
+{"data": [{"_hits": 123456, "author": "Jocelyn Vena", "authors": ["Jocelyn Vena"], "full_content_word_count": 235, "image_url": "http://www.example.com/sites/nbcuexample/files/field_blog_image/2018/09/dish-gina-kirschenheiter.png", "link": "https://www.example.com/the-daily-dish/gina-kirschenheiter-on-why-she-and-husband-matt-are-divorcing", "metadata": "", "metrics": {"views": 123456}, "pub_date": "2018-09-11T17:26:00", "section": "The Daily Dish Post", "tags": ["Gina Kirschenheiter", "Relationships", "Splits", "The Daily Dish", "The Real Housewives of Orange County"], "thumb_url_medium": "https://images.parsely.com/s_8c93N6oJpc_kF51qeWanfnljM=/85x85/smart/http%3A//www.example.com/sites/nbcuexample/files/field_blog_image/2018/09/dish-gina-kirschenheiter.png", "title": "Gina Kirschenheiter Shares Why She and Her Husband Are Divorcing, \"But We Will Never Be Split\"", "url": "https://www.example.com/the-daily-dish/gina-kirschenheiter-on-why-she-and-husband-matt-are-divorcing"}], "links": {"first": "https://api.parsely.com/v2/analytics/posts?apikey=example.com&limit=1&secret=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&page=1", "next": "https://api.parsely.com/v2/analytics/posts?apikey=example.com&limit=1&secret=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&page=2"}, "meta": {"metrics": ["views"], "sort": "views"}, "success": true}
