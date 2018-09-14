@@ -110,7 +110,9 @@ class Posts
 
     public function execute(): PromiseInterface
     {
-        $options = $this->toQueryParts();
+        $options = [
+            'query' => $this->toQueryParts(),
+        ];
 
         return $this->client->requestAsync('GET', self::PATH, $options)
             ->then(function (ResponseInterface $response) {

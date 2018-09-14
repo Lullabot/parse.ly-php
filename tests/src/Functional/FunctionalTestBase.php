@@ -34,7 +34,7 @@ abstract class FunctionalTestBase extends TestCase
             );
         }
 
-        $config = Client::getDefaultConfiguration($key, $secret);
+        $config = Client::getDefaultConfiguration();
 
         if (getenv('PARSELY_LOG_CURL')) {
             $output = new ConsoleOutput();
@@ -50,6 +50,6 @@ abstract class FunctionalTestBase extends TestCase
             $handler->after('cookies', $responseLogger);
         }
 
-        $this->client = new Client(new \GuzzleHttp\Client($config));
+        $this->client = new Client(new \GuzzleHttp\Client($config), $key, $secret);
     }
 }

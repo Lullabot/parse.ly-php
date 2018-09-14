@@ -9,6 +9,10 @@ use Lullabot\Parsely\Tests\Functional\FunctionalTestBase;
 
 class PostsTest extends FunctionalTestBase
 {
+
+    /**
+     * A test that loads 10 posts.
+     */
     public function testExecute()
     {
         $posts = new Posts($this->client);
