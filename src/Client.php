@@ -9,6 +9,13 @@ use Psr\Http\Message\RequestInterface;
 class Client implements ClientInterface
 {
     /**
+     * The root URL for all API requests.
+     *
+     * @see https://www.parse.ly/help/api/endpoint/
+     */
+    const ROOT_URL = 'https://api.parsely.com/v2/';
+
+    /**
      * The underlying HTTP client.
      *
      * @var \GuzzleHttp\ClientInterface
@@ -16,31 +23,40 @@ class Client implements ClientInterface
     protected $client;
 
     /**
+     * @var string
+     */
+    private $apikey;
+
+    /**
+     * @var string
+     */
+    private $secret;
+
+    /**
      * Client constructor.
      *
-     * Custom client implementations should include the Middleware
-     * handler, otherwise MPX errors may not be exposed correctly.
-     *
-     *
      * @param \GuzzleHttp\ClientInterface $client The underlying HTTP client to use for requests.
+     * @param string                      $apikey
+     * @param string                      $secret
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientInterface $client, string $apikey, string $secret)
     {
         $this->client = $client;
+        $this->apikey = $apikey;
+        $this->secret = $secret;
     }
 
     /**
      * Get the default Guzzle client configuration array.
      *
-     * @param mixed $handler (optional) A Guzzle handler to use for
-     *                       requests. If a custom handler is specified, it must
-     *                       include Middleware::mpxErrors or a replacement.
+     * @param mixed $handler (optional) A Guzzle handler to use for requests.
      *
      * @return array An array of configuration options suitable for use with Guzzle.
      */
     public static function getDefaultConfiguration($handler = null)
     {
         $config = [
+            'base_uri' => self::ROOT_URL,
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
@@ -60,7 +76,7 @@ class Client implements ClientInterface
      */
     public function request($method = 'GET', $url = null, array $options = [])
     {
-        return $this->client->request($method, $url, $options);
+        return $this->client->request($method, $url, $this->mergeAuth($options));
     }
 
     /**
@@ -68,7 +84,7 @@ class Client implements ClientInterface
      */
     public function send(RequestInterface $request, array $options = [])
     {
-        return $this->client->send($request, $options);
+        return $this->client->send($request, $this->mergeAuth($options));
     }
 
     /**
@@ -76,7 +92,7 @@ class Client implements ClientInterface
      */
     public function sendAsync(RequestInterface $request, array $options = [])
     {
-        return $this->client->sendAsync($request, $options);
+        return $this->client->sendAsync($request, $this->mergeAuth($options));
     }
 
     /**
@@ -84,7 +100,7 @@ class Client implements ClientInterface
      */
     public function requestAsync($method, $uri, array $options = [])
     {
-        return $this->client->requestAsync($method, $uri, $options);
+        return $this->client->requestAsync($method, $uri, $this->mergeAuth($options));
     }
 
     /**
@@ -93,5 +109,25 @@ class Client implements ClientInterface
     public function getConfig($option = null)
     {
         return $this->client->getConfig($option);
+    }
+
+    /**
+     * Merge authentication headers into request options.
+     *
+     * @param array $options The array of request options.
+     *
+     * @return array The updated request options.
+     */
+    private function mergeAuth(array $options): array
+    {
+        if (!isset($options['query'])) {
+            $options['query'] = [];
+        }
+        $options['query'] += [
+            'apikey' => $this->apikey,
+            'secret' => $this->secret,
+        ];
+
+        return $options;
     }
 }
