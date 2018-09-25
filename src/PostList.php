@@ -97,7 +97,8 @@ class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * {@inheritdoc}
      */
-    public function getIterator() {
+    public function getIterator()
+    {
         return new \ArrayIterator($this->getData());
     }
 }
