@@ -38,7 +38,7 @@ class PostListTest extends TestCase
             $four,
         ]);
 
-        $merged = $firstList->merge($secondList, $thirdList);
+        $merged = PostList::merge($firstList, $secondList, $thirdList);
 
         $expected = [
             $four,

@@ -54,21 +54,21 @@ class PostList implements \ArrayAccess, \Countable
     }
 
     /**
-     * Merge this list of posts with other lists of posts.
+     * Merge lists of posts.
      *
      * A new post list is returned, with:
      *  - Duplicates removed, based on post title.
      *  - Sorted by the number of hits in descending order.
      *
-     * @param self ...$others The other post lists to merge.
+     * @param self ...$lists The other post lists to merge.
      *
      * @return \Lullabot\Parsely\PostList
      */
-    public function merge(self ...$others): self
+    public static function merge(self ...$lists): self
     {
-        $merged = $this->getData();
-        foreach ($others as $other) {
-            $merged = array_merge($merged, $other->getData());
+        $merged = [];
+        foreach ($lists as $list) {
+            $merged = array_merge($merged, $list->getData());
         }
 
         // Remove duplicate results from the other list, based on title.
