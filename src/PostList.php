@@ -8,7 +8,7 @@ namespace Lullabot\Parsely;
  * @todo Do all lists of any object have the same format? If so, this could
  *   become just 'List'.
  */
-class PostList implements \ArrayAccess, \Countable
+class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
 {
     /**
      * @var \Lullabot\Parsely\Post[]
@@ -92,5 +92,12 @@ class PostList implements \ArrayAccess, \Countable
         $new->setData($merged);
 
         return $new;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator() {
+        return new \ArrayIterator($this->getData());
     }
 }
