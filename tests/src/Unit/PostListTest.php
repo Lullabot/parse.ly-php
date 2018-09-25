@@ -49,6 +49,24 @@ class PostListTest extends TestCase
         $this->assertEquals($expected, $merged->getData());
     }
 
+    /**
+     * Test that a single list is "merged" properly.
+     */
+    public function testOneMerge()
+    {
+        $one = $this->getPost('One post', 4);
+        $two = $this->getPost('Two post', 3);
+
+        $firstList = new PostList();
+        $firstList->setData([
+            $one,
+            $two,
+        ]);
+
+        $merged = PostList::merge($firstList);
+        $this->assertEquals($firstList->getData(), $merged->getData());
+    }
+
     private function getPost(string $title, int $hits): Post
     {
         $post = new Post();
