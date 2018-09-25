@@ -303,9 +303,9 @@ class Post
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getThumbUrlMedium(): string
+    public function getThumbUrlMedium(): ?string
     {
         return $this->thumbUrlMedium;
     }
@@ -315,7 +315,7 @@ class Post
      *
      * @return Post
      */
-    public function setThumbUrlMedium(string $thumbUrlMedium): self
+    public function setThumbUrlMedium(string $thumbUrlMedium = null): self
     {
         $this->thumbUrlMedium = $thumbUrlMedium;
 

@@ -4,10 +4,10 @@ namespace Lullabot\Parsely\Analytics;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Promise\PromiseInterface;
+use Lullabot\Parsely\Encoder\JsonEncoder;
 use Lullabot\Parsely\PostList;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
