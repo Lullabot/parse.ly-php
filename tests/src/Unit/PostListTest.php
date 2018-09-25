@@ -6,8 +6,8 @@ use Lullabot\Parsely\Post;
 use Lullabot\Parsely\PostList;
 use PHPUnit\Framework\TestCase;
 
-class PostListTest extends TestCase {
-
+class PostListTest extends TestCase
+{
     public function testMerge()
     {
         // Four mock posts to use in different lists.
@@ -54,6 +54,7 @@ class PostListTest extends TestCase {
         $post = new Post();
         $post->setTitle($title);
         $post->setHits($hits);
+
         return $post;
     }
 }

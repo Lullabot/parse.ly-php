@@ -64,7 +64,7 @@ class PostList implements \ArrayAccess, \Countable
      *
      * @return \Lullabot\Parsely\PostList
      */
-    public function merge(self ...$others): PostList
+    public function merge(self ...$others): self
     {
         $merged = $this->getData();
         foreach ($others as $other) {
