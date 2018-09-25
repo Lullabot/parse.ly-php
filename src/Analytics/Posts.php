@@ -29,6 +29,11 @@ class Posts
     private $page;
 
     /**
+     * @var string
+     */
+    private $periodStart;
+
+    /**
      * @var int
      */
     private $limit;
@@ -37,6 +42,11 @@ class Posts
      * @var string
      */
     private $section;
+
+    /**
+     * @var string
+     */
+    private $tag;
 
     /**
      * Posts constructor.
@@ -108,6 +118,46 @@ class Posts
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getPeriodStart(): ?string
+    {
+        return $this->periodStart;
+    }
+
+    /**
+     * @param string $periodStart
+     *
+     * @return Posts
+     */
+    public function setPeriodStart(string $periodStart = null): self
+    {
+        $this->periodStart = $periodStart;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTag(): ?string
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param string $tag
+     *
+     * @return Posts
+     */
+    public function setTag(string $tag = null): self
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
     public function execute(): PromiseInterface
     {
         $options = [
@@ -130,8 +180,10 @@ class Posts
     {
         return array_filter([
             'page' => $this->getPage(),
+            'period_start' => $this->getPeriodStart(),
             'limit' => $this->getLimit(),
             'section' => $this->getSection(),
+            'tag' => $this->getTag(),
         ]);
     }
 }
