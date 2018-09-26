@@ -94,6 +94,14 @@ class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
         return $new;
     }
 
+    public function slice(int $offset, int $length = null, bool $perserveKeys = false): self
+    {
+        $slice = new self();
+        $slice->setData(\array_slice($this->getData(), $offset, $length, $perserveKeys));
+
+        return $slice;
+    }
+
     /**
      * {@inheritdoc}
      */
