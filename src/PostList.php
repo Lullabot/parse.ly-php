@@ -13,7 +13,7 @@ class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * @var \Lullabot\Parsely\Post[]
      */
-    private $data;
+    private $data = [];
 
     public function getData(): array
     {

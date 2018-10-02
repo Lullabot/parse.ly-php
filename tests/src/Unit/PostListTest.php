@@ -67,6 +67,12 @@ class PostListTest extends TestCase
         $this->assertEquals($firstList->getData(), $merged->getData());
     }
 
+    public function testEmptyList()
+    {
+        $list = new PostList();
+        $this->assertEmpty($list->getData());
+    }
+
     private function getPost(string $title, int $hits): Post
     {
         $post = new Post();
