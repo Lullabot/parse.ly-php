@@ -6,12 +6,13 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use Psr\Http\Message\RequestInterface;
 
-class CrawlerClient implements ClientInterface {
+class DashboardClient implements ClientInterface {
 
   /**
-   * The root URL for crawl requests.
+   * The root URL for dashboard requests.
    *
    * @see https://www.parse.ly/help/integration/trigger-crawl/
+   * @see https://www.parse.ly/help/integration/crawler/#how-do-i-find-pages-that-have-not-been-crawled-correctly
    */
   const ROOT_URL = 'https://dash.parsely.com/';
 
