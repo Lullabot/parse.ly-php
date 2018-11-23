@@ -6,8 +6,8 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use Psr\Http\Message\RequestInterface;
 
-class DashboardClient implements ClientInterface {
-
+class DashboardClient implements ClientInterface
+{
   /**
    * The root URL for dashboard requests.
    *
@@ -140,7 +140,8 @@ class DashboardClient implements ClientInterface {
    *
    * @return string The updated URL.
    */
-  private function mergeUriAuth(string $uri): string {
+  private function mergeUriAuth(string $uri): string
+  {
     return $this->apikey . '/' . $uri;
   }
 
