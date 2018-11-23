@@ -57,12 +57,12 @@ class DashboardClient implements ClientInterface
     public static function getDefaultConfiguration($handler = null)
     {
         $config = [
-      'base_uri' => self::ROOT_URL,
-      'headers' => [
-        'Accept' => 'application/json',
-        'Content-Type' => 'application/json',
-      ],
-    ];
+            'base_uri' => self::ROOT_URL,
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+        ];
 
         if (!$handler) {
             $handler = HandlerStack::create();
@@ -129,8 +129,8 @@ class DashboardClient implements ClientInterface
             $options['query'] = [];
         }
         $options['query'] += [
-      'secret' => $this->secret,
-    ];
+            'secret' => $this->secret,
+        ];
 
         return $options;
     }
