@@ -5,6 +5,7 @@ namespace Lullabot\Parsely;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use Psr\Http\Message\RequestInterface;
+use function GuzzleHttp\Psr7\build_query;
 
 class Client implements ClientInterface
 {
@@ -76,7 +77,7 @@ class Client implements ClientInterface
      */
     public function request($method = 'GET', $url = null, array $options = [])
     {
-        return $this->client->request($method, $url, $this->mergeAuth($options));
+        return $this->client->request($method, $url, $this->flattenQuery($this->mergeAuth($options)));
     }
 
     /**
@@ -84,7 +85,7 @@ class Client implements ClientInterface
      */
     public function send(RequestInterface $request, array $options = [])
     {
-        return $this->client->send($request, $this->mergeAuth($options));
+        return $this->client->send($request, $this->flattenQuery($this->mergeAuth($options)));
     }
 
     /**
@@ -92,7 +93,7 @@ class Client implements ClientInterface
      */
     public function sendAsync(RequestInterface $request, array $options = [])
     {
-        return $this->client->sendAsync($request, $this->mergeAuth($options));
+        return $this->client->sendAsync($request, $this->flattenQuery($this->mergeAuth($options)));
     }
 
     /**
@@ -100,7 +101,7 @@ class Client implements ClientInterface
      */
     public function requestAsync($method, $uri, array $options = [])
     {
-        return $this->client->requestAsync($method, $uri, $this->mergeAuth($options));
+        return $this->client->requestAsync($method, $uri, $this->flattenQuery($this->mergeAuth($options)));
     }
 
     /**
@@ -128,6 +129,26 @@ class Client implements ClientInterface
             'secret' => $this->secret,
         ];
 
+        return $options;
+    }
+
+    /**
+     * Flatten the query params to string using GuzzleHttp\Psr7\build_query.
+     *
+     * Parse.ly API wants the duplicate aggregator implementation where to
+     * supply multiple values of the same key, you just name the key more than
+     * once. Leaving it to Guzzle to turn an array of query params into a string
+     * uses the http_build_query function. That uses PHP's array notation which
+     * the Parse.ly API doesn't handle.
+     *
+     * @param array $options The array of request options.
+     *
+     * @return array The updated request options.
+     */
+    private function flattenQuery(array $options): array {
+        if (isset($options['query'])) {
+            $options['query'] = build_query($options['query']);
+        }
         return $options;
     }
 }
