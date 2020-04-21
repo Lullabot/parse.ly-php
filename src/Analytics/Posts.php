@@ -39,9 +39,9 @@ class Posts
     private $limit;
 
     /**
-     * @var string
+     * @var array
      */
-    private $section;
+    private $sections;
 
     /**
      * @var string
@@ -98,26 +98,17 @@ class Posts
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSection(): ?string
+    public function getSections(): array
     {
-        return $this->section;
+        return $this->sections;
     }
 
-    /**
-     * @param string $section
-     *
-     * @return Posts
-     */
-    public function setSection(string $section): self
+    public function setSections(array $sections): self
     {
-        $this->section = $section;
+        $this->sections = $sections;
 
         return $this;
     }
-
     /**
      * @return string
      */
@@ -182,7 +173,7 @@ class Posts
             'page' => $this->getPage(),
             'period_start' => $this->getPeriodStart(),
             'limit' => $this->getLimit(),
-            'section' => $this->getSection(),
+            'section' => $this->getSections(),
             'tag' => $this->getTag(),
         ]);
     }
