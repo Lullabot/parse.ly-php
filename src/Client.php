@@ -145,7 +145,8 @@ class Client implements ClientInterface
      *
      * @return array The updated request options.
      */
-    private function flattenQuery(array $options): array {
+    private function flattenQuery(array $options): array
+    {
         if (isset($options['query'])) {
             $options['query'] = build_query($options['query']);
         }

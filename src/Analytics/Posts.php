@@ -98,7 +98,7 @@ class Posts
         return $this;
     }
 
-    public function getSections(): array
+    public function getSections(): ?array
     {
         return $this->sections;
     }
@@ -177,4 +177,5 @@ class Posts
             'tag' => $this->getTag(),
         ]);
     }
+
 }
