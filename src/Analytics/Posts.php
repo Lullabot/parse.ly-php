@@ -109,6 +109,7 @@ class Posts
 
         return $this;
     }
+
     /**
      * @return string
      */
@@ -177,5 +178,4 @@ class Posts
             'tag' => $this->getTag(),
         ]);
     }
-
 }

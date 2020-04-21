@@ -150,6 +150,7 @@ class Client implements ClientInterface
         if (isset($options['query'])) {
             $options['query'] = build_query($options['query']);
         }
+
         return $options;
     }
 }
