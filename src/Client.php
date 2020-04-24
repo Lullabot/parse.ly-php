@@ -135,11 +135,13 @@ class Client implements ClientInterface
     /**
      * Flatten the query params to string using GuzzleHttp\Psr7\build_query.
      *
-     * Parse.ly API wants the duplicate aggregator implementation where to
-     * supply multiple values of the same key, you just name the key more than
-     * once. Leaving it to Guzzle to turn an array of query params into a string
-     * uses the http_build_query function. That uses PHP's array notation which
-     * the Parse.ly API doesn't handle.
+     * To express multiple values for a single key, Parse.ly's API needs each
+     * value assigned the same key name. Unlike how PHP deals with this
+     * using square brackets at the end of the key name. Leaving it to Guzzle to
+     * turn an array of query params into a string uses the http_build_query
+     * function, which uses the square brackets. Here we make sure multiple
+     * values are sent correctly to Parse.ly by using
+     * \GuzzleHttp\Psr7\build_query.
      *
      * @param array $options The array of request options.
      *
