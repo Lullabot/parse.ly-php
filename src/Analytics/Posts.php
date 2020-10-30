@@ -50,8 +50,6 @@ class Posts
 
     /**
      * Posts constructor.
-     *
-     * @param \GuzzleHttp\ClientInterface $client
      */
     public function __construct(ClientInterface $client)
     {

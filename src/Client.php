@@ -4,8 +4,8 @@ namespace Lullabot\Parsely;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
-use Psr\Http\Message\RequestInterface;
 use function GuzzleHttp\Psr7\build_query;
+use Psr\Http\Message\RequestInterface;
 
 class Client implements ClientInterface
 {
@@ -37,8 +37,6 @@ class Client implements ClientInterface
      * Client constructor.
      *
      * @param \GuzzleHttp\ClientInterface $client The underlying HTTP client to use for requests.
-     * @param string                      $apikey
-     * @param string                      $secret
      */
     public function __construct(ClientInterface $client, string $apikey, string $secret)
     {
