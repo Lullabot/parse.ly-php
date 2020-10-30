@@ -37,8 +37,6 @@ class DashboardClient implements ClientInterface
      * Client constructor.
      *
      * @param \GuzzleHttp\ClientInterface $client The underlying HTTP client to use for requests.
-     * @param string                      $apikey
-     * @param string                      $secret
      */
     public function __construct(ClientInterface $client, string $apikey, string $secret)
     {
