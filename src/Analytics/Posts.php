@@ -3,10 +3,12 @@
 namespace Lullabot\Parsely\Analytics;
 
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Lullabot\Parsely\Encoder\JsonEncoder;
 use Lullabot\Parsely\PostList;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
@@ -49,11 +51,17 @@ class Posts
     private $tag;
 
     /**
+     * @var \Psr\Log\LoggerInterface|null
+     */
+    private ?LoggerInterface $logger;
+
+    /**
      * Posts constructor.
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientInterface $client, LoggerInterface $logger = NULL)
     {
         $this->client = $client;
+        $this->logger = $logger;
     }
 
     /**
@@ -153,17 +161,24 @@ class Posts
         $options = [
             'query' => $this->toQueryParts(),
         ];
+        $onFulfilled = function (ResponseInterface $response) {
+            $serializer = new Serializer([
+                new DateTimeNormalizer(),
+                new ArrayDenormalizer(),
+                new ObjectNormalizer(NULL, new CamelCaseToSnakeCaseNameConverter(), NULL, new PhpDocExtractor()),
+            ], [new JsonEncoder()]);
 
-        return $this->client->requestAsync('GET', self::PATH, $options)
-            ->then(function (ResponseInterface $response) {
-                $serializer = new Serializer([
-                    new DateTimeNormalizer(),
-                    new ArrayDenormalizer(),
-                    new ObjectNormalizer(null, new CamelCaseToSnakeCaseNameConverter(), null, new PhpDocExtractor()),
-                ], [new JsonEncoder()]);
-
-                return $serializer->deserialize($response->getBody(), PostList::class, 'json');
-            });
+            return $serializer->deserialize($response->getBody(), PostList::class, 'json');
+        };
+        $onRejected = function (GuzzleException $exception) {
+            // If there is an exception log it and continue with an empty
+            // post list.
+            $this->logger->error($exception->getMessage());
+            return new PostList();
+        };
+        return $this->client
+            ->requestAsync('GET', self::PATH, $options)
+            ->then($onFulfilled, $onRejected);
     }
 
     public function toQueryParts(): array
