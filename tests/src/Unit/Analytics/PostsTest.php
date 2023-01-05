@@ -10,15 +10,17 @@ use Lullabot\Parsely\Client;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
-class PostsTest extends TestCase {
-
-    public function testExecute() {
+class PostsTest extends TestCase
+{
+    public function testExecute()
+    {
         $limit = 1;
         $mock_callback = function (RequestInterface $request) use ($limit) {
             $expected_uri = "https://api.parsely.com/v2/analytics/posts?limit=$limit&apikey=fakeKey&secret=fakeSecret";
             $actual_uri = (string) $request->getUri();
             $this->assertSame($expected_uri, $actual_uri);
-            $message_fixture = file_get_contents(__DIR__ . '/../../../fixtures/analytics/posts');
+            $message_fixture = file_get_contents(__DIR__.'/../../../fixtures/analytics/posts');
+
             return Message::parseResponse($message_fixture);
         };
         $mock_handler = new MockHandler([$mock_callback]);
@@ -34,5 +36,4 @@ class PostsTest extends TestCase {
         $actual_title = $result[0]->getTitle();
         $this->assertSame($expected_title, $actual_title);
     }
-
 }

@@ -50,15 +50,12 @@ class Posts
      */
     private $tag;
 
-    /**
-     * @var \Psr\Log\LoggerInterface|null
-     */
     private ?LoggerInterface $logger;
 
     /**
      * Posts constructor.
      */
-    public function __construct(ClientInterface $client, LoggerInterface $logger = NULL)
+    public function __construct(ClientInterface $client, LoggerInterface $logger = null)
     {
         $this->client = $client;
         $this->logger = $logger;
@@ -166,9 +163,9 @@ class Posts
                 new DateTimeNormalizer(),
                 new ArrayDenormalizer(),
                 new ObjectNormalizer(
-                    NULL,
+                    null,
                     new CamelCaseToSnakeCaseNameConverter(),
-                    NULL,
+                    null,
                     new PhpDocExtractor()
                 ),
             ], [new JsonEncoder()]);
@@ -179,8 +176,10 @@ class Posts
             // If there is an exception log it and continue with an empty
             // post list.
             $this->logger->error($exception->getMessage());
+
             return new PostList();
         };
+
         return $this->client
             ->requestAsync('GET', self::PATH, $options)
             ->then($onFulfilled, $onRejected);
