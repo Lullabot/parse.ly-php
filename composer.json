@@ -29,7 +29,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^v2.19",
-        "phpunit/phpunit": "^8.5|^9.5",
+        "phpunit/phpunit": "^8.5.23|^9.5",
         "symfony/console": "^4.4|6.1",
         "namshi/cuzzle": "^2.0",
         "rtheunissen/guzzle-log-middleware": "^v0.4.2"
