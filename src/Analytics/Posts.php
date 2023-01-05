@@ -165,7 +165,12 @@ class Posts
             $serializer = new Serializer([
                 new DateTimeNormalizer(),
                 new ArrayDenormalizer(),
-                new ObjectNormalizer(NULL, new CamelCaseToSnakeCaseNameConverter(), NULL, new PhpDocExtractor()),
+                new ObjectNormalizer(
+                    NULL,
+                    new CamelCaseToSnakeCaseNameConverter(),
+                    NULL,
+                    new PhpDocExtractor()
+                ),
             ], [new JsonEncoder()]);
 
             return $serializer->deserialize($response->getBody(), PostList::class, 'json');

@@ -12,7 +12,7 @@ class JsonEncoder extends SymfonyJsonEncoder
     /**
      * {@inheritdoc}
      */
-    public function decode($data, $format, array $context = [])
+    public function decode($data, $format, array $context = []): mixed
     {
         $decoded = parent::decode($data, $format, $context);
         $this->cleanup($decoded);
@@ -25,7 +25,7 @@ class JsonEncoder extends SymfonyJsonEncoder
      *
      * @param array &$data The data to filter.
      */
-    protected function cleanup(array &$data)
+    protected function cleanup(array &$data): void
     {
         foreach ($data as &$value) {
             if (\is_array($value)) {
