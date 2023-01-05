@@ -1,8 +1,8 @@
 {
     "name": "lullabot/parse.ly-php",
     "description": "Parse.ly API client",
-    "type": "library",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Andrew Berry",
@@ -11,27 +11,36 @@
     ],
     "require": {
         "php": ">=8.1",
-        "guzzlehttp/guzzle": "^6.5|^7.5",
-        "symfony/serializer": "^4.4|^6.1",
-        "symfony/property-access": "^4.4|^6.1",
-        "symfony/property-info": "^4.4|^6.1",
-        "phpdocumentor/reflection-docblock": "^5.3"
+        "guzzlehttp/guzzle": "^6.5 || ^7.5",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "symfony/property-access": "^4.4 || ^6.1",
+        "symfony/property-info": "^4.4 || ^6.1",
+        "symfony/serializer": "^4.4 || ^6.1"
+    },
+    "require-dev": {
+        "enlightn/security-checker": "^v1.10",
+        "ergebnis/composer-normalize": "^2.29",
+        "friendsofphp/php-cs-fixer": "^v2.19 || ^3.13",
+        "namshi/cuzzle": "^2.0",
+        "phpro/grumphp-shim": "^1.15",
+        "phpunit/phpunit": "^8.5.23 || ^9.5",
+        "rtheunissen/guzzle-log-middleware": "^v0.4.2",
+        "symfony/console": "^4.4 || 6.1"
     },
     "autoload": {
         "psr-4": {
-          "Lullabot\\Parsely\\": "src/"
+            "Lullabot\\Parsely\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-          "Lullabot\\Parsely\\Tests\\": "tests/src/"
+            "Lullabot\\Parsely\\Tests\\": "tests/src/"
         }
     },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^v2.19|^3.13",
-        "phpunit/phpunit": "^8.5.23|^9.5",
-        "symfony/console": "^4.4|6.1",
-        "namshi/cuzzle": "^2.0",
-        "rtheunissen/guzzle-log-middleware": "^v0.4.2"
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "phpro/grumphp-shim": true
+        }
     }
 }
