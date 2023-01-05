@@ -4,11 +4,13 @@ namespace Lullabot\Parsely\Tests\Unit\Analytics;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
+
+use function GuzzleHttp\Psr7\parse_response;
+
 use Lullabot\Parsely\Analytics\Posts;
 use Lullabot\Parsely\Client;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
-use function GuzzleHttp\Psr7\parse_response;
 
 class PostsTest extends TestCase
 {
