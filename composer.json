@@ -28,7 +28,7 @@
         }
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^v2.19",
+        "friendsofphp/php-cs-fixer": "^v2.19|^3.13",
         "phpunit/phpunit": "^8.5.23|^9.5",
         "symfony/console": "^4.4|6.1",
         "namshi/cuzzle": "^2.0",

@@ -4,7 +4,9 @@ namespace Lullabot\Parsely;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
+
 use function GuzzleHttp\Psr7\build_query;
+
 use Psr\Http\Message\RequestInterface;
 
 class Client implements ClientInterface
@@ -14,7 +16,7 @@ class Client implements ClientInterface
      *
      * @see https://www.parse.ly/help/api/endpoint/
      */
-    const ROOT_URL = 'https://api.parsely.com/v2/';
+    public const ROOT_URL = 'https://api.parsely.com/v2/';
 
     /**
      * The underlying HTTP client.

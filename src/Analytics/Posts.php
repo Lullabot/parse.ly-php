@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Serializer;
 
 class Posts
 {
-    const PATH = 'analytics/posts';
+    public const PATH = 'analytics/posts';
 
     /**
      * @var \Lullabot\Parsely\Client
@@ -71,8 +71,6 @@ class Posts
 
     /**
      * @param int $page
-     *
-     * @return Posts
      */
     public function setPage(int $page = null): self
     {
@@ -91,8 +89,6 @@ class Posts
 
     /**
      * @param int $limit
-     *
-     * @return Posts
      */
     public function setLimit(int $limit = null): self
     {
@@ -123,8 +119,6 @@ class Posts
 
     /**
      * @param string $periodStart
-     *
-     * @return Posts
      */
     public function setPeriodStart(string $periodStart = null): self
     {
@@ -143,8 +137,6 @@ class Posts
 
     /**
      * @param string $tag
-     *
-     * @return Posts
      */
     public function setTag(string $tag = null): self
     {

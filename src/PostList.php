@@ -2,8 +2,6 @@
 
 namespace Lullabot\Parsely;
 
-use Traversable;
-
 /**
  * Class PostList.
  *
@@ -107,7 +105,7 @@ class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * {@inheritdoc}
      */
-    public function getIterator(): Traversable
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->getData());
     }

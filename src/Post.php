@@ -87,9 +87,6 @@ class Post
         return $this->hits;
     }
 
-    /**
-     * @return Post
-     */
     public function setHits(int $hits): self
     {
         $this->hits = $hits;
@@ -102,9 +99,6 @@ class Post
         return $this->author;
     }
 
-    /**
-     * @return Post
-     */
     public function setAuthor(string $author): self
     {
         $this->author = $author;
@@ -122,8 +116,6 @@ class Post
 
     /**
      * @param string[] $authors
-     *
-     * @return Post
      */
     public function setAuthors(array $authors): self
     {
@@ -137,9 +129,6 @@ class Post
         return $this->fullContentWordCount;
     }
 
-    /**
-     * @return Post
-     */
     public function setFullContentWordCount(int $fullContentWordCount): self
     {
         $this->fullContentWordCount = $fullContentWordCount;
@@ -152,9 +141,6 @@ class Post
         return $this->imageUrl;
     }
 
-    /**
-     * @return Post
-     */
     public function setImageUrl(string $imageUrl): self
     {
         $this->imageUrl = $imageUrl;
@@ -167,9 +153,6 @@ class Post
         return $this->link;
     }
 
-    /**
-     * @return Post
-     */
     public function setLink(string $link): self
     {
         $this->link = $link;
@@ -182,9 +165,6 @@ class Post
         return $this->metadata;
     }
 
-    /**
-     * @return Post
-     */
     public function setMetadata(string $metadata): self
     {
         $this->metadata = $metadata;
@@ -197,9 +177,6 @@ class Post
         return $this->metrics;
     }
 
-    /**
-     * @return Post
-     */
     public function setMetrics(array $metrics): self
     {
         $this->metrics = $metrics;
@@ -212,9 +189,6 @@ class Post
         return $this->pubDate;
     }
 
-    /**
-     * @return Post
-     */
     public function setPubDate(\DateTime $pubDate): self
     {
         $this->pubDate = $pubDate;
@@ -227,9 +201,6 @@ class Post
         return $this->section;
     }
 
-    /**
-     * @return Post
-     */
     public function setSection(string $section): self
     {
         $this->section = $section;
@@ -247,8 +218,6 @@ class Post
 
     /**
      * @param string[] $tags
-     *
-     * @return Post
      */
     public function setTags(array $tags): self
     {
@@ -267,8 +236,6 @@ class Post
 
     /**
      * @param string $thumbUrlMedium
-     *
-     * @return Post
      */
     public function setThumbUrlMedium(string $thumbUrlMedium = null): self
     {
@@ -282,9 +249,6 @@ class Post
         return $this->title;
     }
 
-    /**
-     * @return Post
-     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -297,9 +261,6 @@ class Post
         return $this->url;
     }
 
-    /**
-     * @return Post
-     */
     public function setUrl(string $url): self
     {
         $this->url = $url;

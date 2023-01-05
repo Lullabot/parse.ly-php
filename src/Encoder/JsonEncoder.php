@@ -25,7 +25,7 @@ class JsonEncoder extends SymfonyJsonEncoder
      *
      * @param array &$data The data to filter.
      */
-    protected function cleanup(array & $data): void
+    protected function cleanup(array &$data): void
     {
         foreach ($data as &$value) {
             if (\is_array($value)) {
