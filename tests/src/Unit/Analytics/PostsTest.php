@@ -4,11 +4,11 @@ namespace Lullabot\Parsely\Tests\Unit\Analytics;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Message;
 use Lullabot\Parsely\Analytics\Posts;
 use Lullabot\Parsely\Client;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
+use function GuzzleHttp\Psr7\parse_response;
 
 class PostsTest extends TestCase
 {
@@ -21,7 +21,7 @@ class PostsTest extends TestCase
             $this->assertSame($expected_uri, $actual_uri);
             $message_fixture = file_get_contents(__DIR__.'/../../../fixtures/analytics/posts');
 
-            return Message::parseResponse($message_fixture);
+            return parse_response($message_fixture);
         };
         $mock_handler = new MockHandler([$mock_callback]);
         $guzzle = new GuzzleClient(Client::getDefaultConfiguration($mock_handler));
