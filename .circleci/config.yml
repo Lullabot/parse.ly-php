@@ -140,15 +140,15 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: php:7.2
+      - image: php:8.2
 
     working_directory: ~/repo
 
     <<: *test_and_cover
 
-  build_php71:
+  build_php81:
     docker:
-      - image: php:7.1
+      - image: php:8.1
 
     working_directory: ~/repo
 
@@ -159,7 +159,7 @@ jobs:
 
   code_fixer:
     docker:
-      - image: php:7.2
+      - image: php:8.2
 
     working_directory: ~/repo
 
@@ -172,7 +172,7 @@ workflows:
   test_cover_workflow:
     jobs:
       - build
-      - build_php71
+      - build_php81
       - code_fixer
 
   nightly:
@@ -186,5 +186,5 @@ workflows:
                 - master
     jobs:
       - build
-      - build_php71
+      - build_php81
       - code_fixer
