@@ -30,7 +30,7 @@ test: &test
               exit 1
           fi
 
-          php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
+          php composer-setup.php --quiet --install-dir $HOME/.local/bin --filename composer
 
       - run: composer update -n --prefer-dist $COMPOSER_FLAGS
 
@@ -73,7 +73,7 @@ test_and_cover: &test_and_cover
               exit 1
           fi
 
-          php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
+          php composer-setup.php --quiet --install-dir $HOME/.local/bin --filename composer
 
       - run: composer update -n --prefer-dist
 
@@ -124,7 +124,7 @@ code_fixer: &code_fixer
               exit 1
           fi
 
-          php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
+          php composer-setup.php --quiet --install-dir $HOME/.local/bin --filename composer
 
       - run: composer update -n --prefer-dist
 
