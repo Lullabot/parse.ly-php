@@ -59,7 +59,7 @@ test_and_cover: &test_and_cover
           - v2-test-cover-dependencies-
 
       # php:* has no zip extension and the CLI is faster to install.
-      - run: sudo apt-get update -y && sudo apt-get install unzip -y
+      - run: sudo apt-get update -y && sudo apt-get install unzip libxslt -y
 
       - run: |
           EXPECTED_SIGNATURE=$(curl -L https://composer.github.io/installer.sig)
