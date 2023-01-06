@@ -59,7 +59,7 @@ test_and_cover: &test_and_cover
           - v2-test-cover-dependencies-
 
       # php:* has no zip extension and the CLI is faster to install.
-      - run: sudo apt-get update -y && sudo apt-get install unzip libxslt1-dev -y
+      - run: sudo apt-get update -y && sudo apt-get install unzip -y
 
       - run: |
           EXPECTED_SIGNATURE=$(curl -L https://composer.github.io/installer.sig)
@@ -78,8 +78,7 @@ test_and_cover: &test_and_cover
       - run: composer update -n --prefer-dist
 
       - run: |
-          sudo -E install-php-extensions xsl xdebug
-          # Occassionally, you'll will also need to enable an extension:
+          sudo -E install-php-extensions xdebug
           sudo docker-php-ext-enable xdebug
 
       - save_cache:
