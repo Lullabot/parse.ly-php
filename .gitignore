@@ -5,3 +5,4 @@ phpunit.xml
 build
 /.idea/
 .phpunit.result.cache
+/node_modules
