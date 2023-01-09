@@ -16,7 +16,7 @@ test: &test
           - v2-test-dependencies-
 
       # php:* has no zip extension and the CLI is faster to install.
-      - run: apt-get update -y && apt-get install unzip -y
+      - run: sudo apt-get update -y && sudo apt-get install unzip -y
 
       - run: |
           EXPECTED_SIGNATURE=$(curl -L https://composer.github.io/installer.sig)
@@ -30,13 +30,13 @@ test: &test
               exit 1
           fi
 
-          php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
+          php composer-setup.php --quiet --install-dir $HOME/.local/bin --filename composer
 
       - run: composer update -n --prefer-dist $COMPOSER_FLAGS
 
       - save_cache:
           paths:
-            - /root/.composer/cache/files
+            - $HOME/.composer/cache/files
           key: v2-test-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "composer.json" }}-{{ checksum ".circleci/config.yml" }}
 
       # run tests!
@@ -59,7 +59,7 @@ test_and_cover: &test_and_cover
           - v2-test-cover-dependencies-
 
       # php:* has no zip extension and the CLI is faster to install.
-      - run: apt-get update -y && apt-get install unzip -y
+      - run: sudo apt-get update -y && sudo apt-get install unzip -y
 
       - run: |
           EXPECTED_SIGNATURE=$(curl -L https://composer.github.io/installer.sig)
@@ -73,18 +73,17 @@ test_and_cover: &test_and_cover
               exit 1
           fi
 
-          php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
+          php composer-setup.php --quiet --install-dir $HOME/.local/bin --filename composer
 
       - run: composer update -n --prefer-dist
 
       - run: |
-          [ -f /usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so ] || pecl install xdebug
-          echo 'zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so' > /usr/local/etc/php/conf.d/xdebug.ini
-          echo 'xdebug.mode=coverage' >> /usr/local/etc/php/conf.d/xdebug.ini
+          [ -f /usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so ] || sudo pecl install xdebug
+          echo 'xdebug.mode=coverage' | sudo tee --append /etc/php.d/circleci.ini
 
       - save_cache:
           paths:
-            - /root/.composer/cache/files
+            - $HOME/.composer/cache/files
             - /usr/local/lib/php/extensions/no-debug-non-zts-20170718
             - /usr/local/etc/php/conf.d/xdebug.ini
 
@@ -110,7 +109,7 @@ code_fixer: &code_fixer
           - v2-test-dependencies-
 
       # php:* has no zip extension and the CLI is faster to install.
-      - run: apt-get update -y && apt-get install unzip -y
+      - run: sudo apt-get update -y && sudo apt-get install unzip -y
 
       - run: |
           EXPECTED_SIGNATURE=$(curl -L https://composer.github.io/installer.sig)
@@ -124,31 +123,46 @@ code_fixer: &code_fixer
               exit 1
           fi
 
-          php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
+          php composer-setup.php --quiet --install-dir $HOME/.local/bin --filename composer
 
       - run: composer update -n --prefer-dist
 
       - save_cache:
           paths:
-            - /root/.composer/cache/files
+            - $HOME/.composer/cache/files
           key: v2-test-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "composer.json" }}-{{ checksum ".circleci/config.yml" }}
 
       # run tests!
-      - run: vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --using-cache=no --path-mode=intersection -- src tests
+      - run: vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection -- src tests
+
+tag_release: &tag_release
+  steps:
+      - run: |
+          # Decrypt the git_deploy_key.enc key into /tmp/git_deploy_key
+          openssl aes-256-cbc -d -K $REPO_ENC_KEY -iv $REPO_ENC_IV -in git_deploy_key.enc -out /tmp/git_deploy_key
+          # Make sure only the current user can read the private key
+          chmod 600 /tmp/git_deploy_key
+          # Create a script to return the passphrase environment variable to ssh-add
+          echo 'echo ${SSL_PASSPHRASE}' > /tmp/askpass && chmod +x /tmp/askpass
+          # Start the authentication agent
+          eval "$(ssh-agent -s)"
+          # Add the key to the authentication agent
+          DISPLAY=":0.0" SSH_ASKPASS="/tmp/askpass" setsid ssh-add /tmp/git_deploy_key </dev/null
+      - run: npx semantic-release
 
 jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: php:7.2
+      - image: cimg/php:8.2
 
     working_directory: ~/repo
 
     <<: *test_and_cover
 
-  build_php71:
+  build_php81:
     docker:
-      - image: php:7.1
+      - image: cimg/php:8.1
 
     working_directory: ~/repo
 
@@ -159,11 +173,19 @@ jobs:
 
   code_fixer:
     docker:
-      - image: php:7.2
+      - image: cimg/php:8.2
 
     working_directory: ~/repo
 
+    environment:
+      - PHP_CS_FIXER_IGNORE_ENV: 1
+
     <<: *code_fixer
+
+  release:
+    docker:
+      - image: cimg/node
+    <<: *tag_release
 
 workflows:
   version: 2
@@ -172,10 +194,18 @@ workflows:
   test_cover_workflow:
     jobs:
       - build
-      - build_php71
+      - build_php81
       - code_fixer
+      - release:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
+                - /^[0-9]+\.x/
 
-  nightly:
+  weekly:
     triggers:
       - schedule:
           # Run jobs every Monday morning at 12AM
@@ -183,8 +213,8 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
     jobs:
       - build
-      - build_php71
+      - build_php81
       - code_fixer

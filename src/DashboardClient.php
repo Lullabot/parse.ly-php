@@ -14,7 +14,7 @@ class DashboardClient implements ClientInterface
      * @see https://www.parse.ly/help/integration/trigger-crawl/
      * @see https://www.parse.ly/help/integration/crawler/#how-do-i-find-pages-that-have-not-been-crawled-correctly
      */
-    const ROOT_URL = 'https://dash.parsely.com/';
+    public const ROOT_URL = 'https://dash.parsely.com/';
 
     /**
      * The underlying HTTP client.

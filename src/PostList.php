@@ -23,32 +23,32 @@ class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * @param \Lullabot\Parsely\Post[] $data
      */
-    public function setData(array $data)
+    public function setData(array $data): void
     {
         $this->data = $data;
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->data[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->data[$offset] = $value;
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->data[$offset]);
     }
 
-    public function count()
+    public function count(): int
     {
         return \count($this->data);
     }
@@ -105,7 +105,7 @@ class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * {@inheritdoc}
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->getData());
     }
