@@ -1,7 +1,7 @@
 {
   "name": "parse.ly-php",
   "version": "1.0.0",
-  "repository": "https://github.com/Lullabot/parsy.ly-php",
+  "repository": "https://github.com/Lullabot/parse.ly-php",
   "license": "MIT",
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^9.0.2",
