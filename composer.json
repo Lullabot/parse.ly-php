@@ -1,6 +1,6 @@
 {
     "name": "lullabot/parse.ly-php",
-    "description": "Parse.ly API client",
+    "description": "Parse.ly API client for PHP projects",
     "license": "MIT",
     "type": "library",
     "authors": [
