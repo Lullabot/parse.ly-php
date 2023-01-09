@@ -184,7 +184,7 @@ jobs:
 
   release:
     docker:
-      - image: cimg/node
+      - image: cimg/node:lts
     <<: *tag_release
 
 workflows:
