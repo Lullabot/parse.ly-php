@@ -137,6 +137,8 @@ code_fixer: &code_fixer
 
 tag_release: &tag_release
   steps:
+      - checkout
+
       - run: |
           # Decrypt the git_deploy_key.enc key into /tmp/git_deploy_key
           openssl aes-256-cbc -d -K $REPO_ENC_KEY -iv $REPO_ENC_IV -in git_deploy_key.enc -out /tmp/git_deploy_key
@@ -148,6 +150,7 @@ tag_release: &tag_release
           eval "$(ssh-agent -s)"
           # Add the key to the authentication agent
           DISPLAY=":0.0" SSH_ASKPASS="/tmp/askpass" setsid ssh-add /tmp/git_deploy_key </dev/null
+
       - run: npx semantic-release
 
 jobs:
