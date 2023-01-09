@@ -79,7 +79,7 @@ test_and_cover: &test_and_cover
 
       - run: |
           [ -f /usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so ] || sudo pecl install xdebug
-          sudo echo 'xdebug.mode=coverage' >> /etc/php.d/circleci.ini
+          echo 'xdebug.mode=coverage' | sudo tee --append /etc/php.d/circleci.ini
 
       - save_cache:
           paths:
