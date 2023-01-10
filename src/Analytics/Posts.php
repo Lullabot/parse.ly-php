@@ -167,8 +167,9 @@ class Posts
         $onRejected = function (GuzzleException $exception) {
             // If there is an exception log it and continue with an empty
             // post list.
-            $this->logger->error($exception->getMessage());
-
+            if ($this->logger) {
+                $this->logger->error($exception->getMessage());
+            }
             return new PostList();
         };
 
