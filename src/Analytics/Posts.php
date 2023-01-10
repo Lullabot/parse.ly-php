@@ -170,6 +170,7 @@ class Posts
             if ($this->logger) {
                 $this->logger->error($exception->getMessage());
             }
+
             return new PostList();
         };
 
