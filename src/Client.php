@@ -4,10 +4,9 @@ namespace Lullabot\Parsely;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
+use Psr\Http\Message\RequestInterface;
 
 use function GuzzleHttp\Psr7\build_query;
-
-use Psr\Http\Message\RequestInterface;
 
 class Client implements ClientInterface
 {
