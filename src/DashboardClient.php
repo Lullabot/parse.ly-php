@@ -4,7 +4,9 @@ namespace Lullabot\Parsely;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class DashboardClient implements ClientInterface
 {
@@ -73,7 +75,7 @@ class DashboardClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function request($method = 'GET', $uri = null, array $options = [])
+    public function request($method = 'GET', $uri = null, array $options = []): ResponseInterface
     {
         return $this->client->request($method, $this->mergeUriAuth($uri), $this->mergeQueryAuth($options));
     }
@@ -81,7 +83,7 @@ class DashboardClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function send(RequestInterface $request, array $options = [])
+    public function send(RequestInterface $request, array $options = []): ResponseInterface
     {
         $request->withUri($this->mergeUriAuth($request->getUri()));
 
@@ -91,7 +93,7 @@ class DashboardClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function sendAsync(RequestInterface $request, array $options = [])
+    public function sendAsync(RequestInterface $request, array $options = []): PromiseInterface
     {
         $request->withUri($this->mergeUriAuth($request->getUri()));
 
@@ -101,7 +103,7 @@ class DashboardClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function requestAsync($method, $uri, array $options = [])
+    public function requestAsync($method, $uri, array $options = []): PromiseInterface
     {
         return $this->client->requestAsync($method, $this->mergeUriAuth($uri), $this->mergeQueryAuth($options));
     }
