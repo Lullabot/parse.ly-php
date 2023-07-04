@@ -28,26 +28,31 @@ class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
         $this->data = $data;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->data[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->data[$offset];
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->data[$offset] = $value;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return \count($this->data);
@@ -105,6 +110,7 @@ class PostList implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new \ArrayIterator($this->getData());
