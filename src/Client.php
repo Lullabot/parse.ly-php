@@ -5,10 +5,9 @@ namespace Lullabot\Parsely;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Query;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-
-use function GuzzleHttp\Psr7\build_query;
 
 class Client implements ClientInterface
 {
@@ -134,7 +133,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * Flatten the query params to string using GuzzleHttp\Psr7\build_query.
+     * Flatten the query params to string using GuzzleHttp\Psr7\Query::build().
      *
      * To express multiple values for a single key, Parse.ly's API needs each
      * value assigned the same key name. Unlike how PHP deals with this
@@ -142,7 +141,7 @@ class Client implements ClientInterface
      * turn an array of query params into a string uses the http_build_query
      * function, which uses the square brackets. Here we make sure multiple
      * values are sent correctly to Parse.ly by using
-     * \GuzzleHttp\Psr7\build_query.
+     * \GuzzleHttp\Psr7\Query::build().
      *
      * @param array $options The array of request options.
      *
@@ -151,7 +150,7 @@ class Client implements ClientInterface
     private function flattenQuery(array $options): array
     {
         if (isset($options['query'])) {
-            $options['query'] = build_query($options['query']);
+            $options['query'] = Query::build($options['query']);
         }
 
         return $options;

@@ -3,7 +3,6 @@
 namespace Lullabot\Parsely\Analytics;
 
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Lullabot\Parsely\Encoder\JsonEncoder;
 use Lullabot\Parsely\PostList;
@@ -164,11 +163,12 @@ class Posts
 
             return $serializer->deserialize($response->getBody(), PostList::class, 'json');
         };
-        $onRejected = function (GuzzleException $exception) {
+        $onRejected = function () {
+            // @todo Restore the real exception message here.
             // If there is an exception log it and continue with an empty
             // post list.
             if ($this->logger) {
-                $this->logger->error($exception->getMessage());
+                $this->logger->error('An error happened when retrieving posts.');
             }
 
             return new PostList();
